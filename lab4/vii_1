@@ -1,0 +1,17 @@
+while true; do
+read LINE 
+ 
+if [[ "$LINE" == "+" ]]
+then 
+	kill -USR1 $(cat vii_connection)
+	
+elif [[ "$LINE" == "*" ]]
+then
+	kill -USR2 $(cat vii_connection)
+
+elif [[ "$LINE" == "TERM" ]]
+then
+	kill -SIGTERM $(cat vii_connection)
+fi
+
+done

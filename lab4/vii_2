@@ -1,0 +1,46 @@
+echo $$ > vii_connection
+A=1;
+mode="work"
+operation="null"
+add2(){
+
+operation="add"
+
+}
+
+mul2(){
+
+operation="mul"
+
+}
+
+close(){
+
+mode="stop"
+
+}
+trap 'add2' USR1
+trap 'mul2' USR2   
+trap 'close' SIGTERM
+  
+while true; do
+sleep 1
+if [[ "$mode" == "work" ]]
+then
+	if [[ "$operation" == "add" ]]
+	then 
+	let A=$A+2
+	echo $A
+
+	elif [[ "$operation" == "mul" ]]
+	then 
+	let A=$A*2	
+	echo $A
+	fi
+
+
+else 
+	echo "KILLED BY OTHER PROCESS"
+	exit 0
+fi
+done

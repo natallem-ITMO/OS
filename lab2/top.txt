@@ -1,0 +1,10 @@
+    248 /bin/sh
+    107 /usr/bin/perl
+     63 /usr/bin/python3
+     17 /bin/bash
+     10 /usr/bin/python2.7
+      6 /usr/bin/python3.7
+      3 /usr/bin/python2
+      3 /usr/bin/python
+      2 /usr/bin/env
+      1 /usr/bin/perl5.28-x86_64-linux-gnu

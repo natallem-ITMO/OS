@@ -1,0 +1,41 @@
+result=1
+mode="+"
+
+tail -n 0 -F v_connection |
+while true; do
+read LINE
+echo "$LINE"
+
+if [[ "$LINE" == "QUIT" ]]
+then 
+killall tail
+echo "Bye..."
+exit 0
+
+elif [[ "$LINE" == "+" ]]
+then 
+mode="+"
+
+elif [[ "$LINE" == "*" ]]
+then 
+mode="*"
+
+elif [[ "$LINE" =~ ^-?[0-9]+$ ]]
+then
+	if [[ "$mode" == "+" ]]
+		then result=$(($result + $LINE))
+		echo "текущий результат: $result"
+	else 
+		result=$(($result * $LINE))
+		echo "текущий результат: $result"
+	fi
+
+
+else 
+killall tail 
+echo "Invalid input"
+exit 1
+
+fi
+
+done

@@ -1,0 +1,42 @@
+#!/bin/bash
+
+#1. Скрипт untrash
+
+#a. Скрипту передается один параметр – имя файла, который нужно восстановить (без полного пути – только имя).
+
+#b. Скрипт по файлу trash.log должен найти все записи, содержащие в качестве имени файла переданный параметр, и выводить по одному на экран полные имена таких файлов с запросом подтверждения.
+
+#c. Если пользователь отвечает на подтверждение положительно, то предпринимается попытка восстановить файл по указанному полному пути (создать в соответствующем каталоге жесткую ссылку на файл из trash и удалить соответствующий файл из trash). Если каталога, указанного в полном пути к файлу, уже не существует, то файл восстанавливается в домашний каталог пользователя с выводом соответствующего сообщения.
+
+
+file="$@"
+home="/home/natalem/"
+trash="$home.trash"
+trashLog="$trash.log"
+
+grep "/$file " "$trashLog" |
+while read line
+do
+echo $line;
+
+	curFile=$(echo "$line" | awk '{$NF=""} 1')
+	fileInTrash=$(echo "$line" | awk '{ print $NF }')
+	#a=( $line )
+	#curFile="${a[0]}" #todo
+	#fileInTrash="${a[1]}"
+	echo -n "Restore file ?(Yes/No)"
+	read ans < /dev/tty	
+	if [[ "$ans" == "Yes" ]] 
+	then
+		path=$(echo "$curFile" | grep -Eo '.*\/') 
+		if [ ! -d "$path" ]; then
+			echo "Original directory doesn't exist, file restored in home directory"
+			path="$home"
+		fi;
+		path="$path/$file"	
+		fileInTrash="$trash/$fileInTrash"
+		ln "$fileInTrash" "$path"
+		rm $fileInTrash
+	fi
+done
+

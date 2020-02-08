@@ -1,0 +1,25 @@
+while true; do
+read LINE
+echo "$LINE" >> v_connection
+
+if [[ $LINE == "QUIT" ]]
+then
+ echo "Good luck"
+ exit 0
+fi
+ 
+if [[ "$LINE" != "+" && "$LINE" != "*" && ! "$LINE" =~ ^-?[0-9]+$ ]] 
+then
+echo "invalid input"
+exit 1
+fi
+done
+
+
+
+
+#The ^ indicates the beginning of the input pattern
+#The - is a literal "-"
+#The ? means "0 or 1 of the preceding (-)"
+#The + means "1 or more of the preceding ([0-9])"
+#The $ indicates the end of the input pattern

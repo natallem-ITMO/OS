@@ -1,0 +1,6 @@
+input=4 | value=5 | mode=+
+input=5 | value=10 | mode=+
+input=6 | value=16 | mode=+
+input=* | value=16 | mode=*
+input=2 | value=32 | mode=*
+QUIT

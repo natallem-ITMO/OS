@@ -1,0 +1,8 @@
+while true; do
+read LINE
+if [[ "$LINE" == "TERM" ]] 
+then 
+kill -SIGTERM $(cat vi_connection)
+exit 0
+fi
+done

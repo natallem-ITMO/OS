@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#Создайте и однократно выполните скрипт (в этом скрипте нельзя использовать условный оператор и операторы проверки свойств и значений), который будет пытаться создать директорию test в домашней директории. Если создание директории пройдет успешно, скрипт выведет в файл ~/report сообщение вида "catalog test was created successfully" и создаст в директории test файл с именем Дата_Время_Запуска_Скрипта. Затем независимо от результатов предыдущего шага скрипт должен опросить с помощью команды ping хост www.net_nikogo.ru и, если этот хост недоступен, дописать сообщение об ошибке в файл ~/report.
+
+date=`date +"%d-%m-%Y_%T"`
+report="/home/natalem/report"
+host="www.net_nikogo.ru"
+#host="google.com"
+>> $report
+
+mkdir ~/test > /dev/null 2>&1 && {
+echo "catalog test was created successfully" >> $report
+touch /home/natalem/test/$date
+}
+ping -c1 $host > /dev/null  || {
+echo "host $host unreachable" >> $report
+}
+ 

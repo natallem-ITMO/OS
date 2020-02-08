@@ -1,0 +1,21 @@
+echo $$ > vi_connection
+A=0;
+mode="work"
+
+catch(){
+
+mode="exit"
+
+}
+trap 'catch' SIGTERM  
+while true; do
+sleep 1
+if [[ "$mode" == "work" ]]
+then
+	let A=$A+1
+	echo $A
+else 
+	echo "KILLED BY OTHER PROCESS"
+	exit 0
+fi
+done

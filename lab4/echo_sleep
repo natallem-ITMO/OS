@@ -1,0 +1,9 @@
+sleep 3
+echo 1 >> ~/report
+
+sleep 1
+echo 2 >> ~/report
+
+
+sleep 1
+echo 3 >> ~/report
